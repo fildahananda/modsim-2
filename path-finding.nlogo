@@ -1,5 +1,31 @@
+breed [ pieces piece ]
+
+pieces-own [
+  x y      ;; these are the piece's offsets relative to turtle 0
+]
+
 to setup
   clear-all
+  set-default-shape turtles "square"
+  ;;create-turtles 1
+  create-pieces 4
+  [ set heading 180 ]
+  ask turtle 0 [ setxy 0 0 ]
+  ask pieces
+  [
+   if (who = 1) [ set x  1 set y  0 ]
+  if (who = 2) [ set x -1 set y  0 ]
+  if (who = 3) [ set x -1 set y -1 ]
+    setxy ([xcor] of turtle 0) + x
+        ([ycor] of turtle 0) + y
+  ]
+end
+
+to go
+  ask turtle 0 [
+    face min-one-of patches with [ pcolor = red ] [ distance myself ]
+    forward 1
+  ]
 end
 
 to set-goal
@@ -89,6 +115,23 @@ BUTTON
 NIL
 setup\n
 NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+111
+159
+174
+192
+go
+go
+T
 1
 T
 OBSERVER
